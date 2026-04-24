@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>CityEditor</class>
+ <widget class="QDialog" name="CityEditor">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>600</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Редактор городов</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+    QDialog {
+        background-color: #f0f4f8;
+    }
+    QLabel#labelTitle {
+        font-size: 18px;
+        font-weight: bold;
+        color: #2c3e50;
+        padding: 10px;
+    }
+    QTableWidget {
+        background-color: white;
+        border: 1px solid #bdc3c7;
+        border-radius: 5px;
+        gridline-color: #ecf0f1;
+        selection-background-color: #3498db;
+        selection-color: white;
+    }
+    QTableWidget::item {
+        padding: 5px;
+    }
+    QHeaderView::section {
+        background-color: #3498db;
+        color: white;
+        padding: 8px;
+        border: none;
+        font-weight: bold;
+    }
+    QPushButton {
+        background-color: #3498db;
+        color: white;
+        border: none;
+        padding: 8px 16px;
+        font-size: 13px;
+        font-weight: bold;
+        border-radius: 4px;
+        min-width: 100px;
+    }
+    QPushButton:hover {
+        background-color: #2980b9;
+    }
+    QPushButton#btnDelete {
+        background-color: #e74c3c;
+    }
+    QPushButton#btnDelete:hover {
+        background-color: #c0392b;
+    }
+    QPushButton#btnRestore {
+        background-color: #95a5a6;
+    }
+    QPushButton#btnRestore:hover {
+        background-color: #7f8c8d;
+    }
+   </string>
+  </property>
+
+  <layout class="QVBoxLayout" name="verticalLayoutMain">
+   <property name="spacing">
+    <number>10</number>
+   </property>
+   <property name="leftMargin">
+    <number>20</number>
+   </property>
+   <property name="topMargin">
+    <number>20</number>
+   </property>
+   <property name="rightMargin">
+    <number>20</number>
+   </property>
+   <property name="bottomMargin">
+    <number>20</number>
+   </property>
+
+   <!-- Заголовок -->
+   <item>
+    <widget class="QLabel" name="labelTitle">
+     <property name="text">
+      <string>Управление списком городов</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
+
+   <!-- Таблица городов -->
+   <item>
+    <widget class="QTableWidget" name="tableWidget">
+     <property name="columnCount">
+      <number>3</number>
+     </property>
+     <property name="selectionBehavior">
+      <enum>QAbstractItemView::SelectRows</enum>
+     </property>
+     <property name="selectionMode">
+      <enum>QAbstractItemView::SingleSelection</enum>
+     </property>
+     <property name="editTriggers">
+      <set>QAbstractItemView::DoubleClicked|QAbstractItemView::EditKeyPressed</set>
+     </property>
+
+     <column>
+      <property name="text">
+       <string>Название города</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Широта</string>
+      </property>
+     </column>
+     <column>
+      <property name="text">
+       <string>Долгота</string>
+      </property>
+     </column>
+    </widget>
+   </item>
+
+   <!-- Форма добавления/редактирования -->
+   <item>
+    <widget class="QGroupBox" name="groupBoxEdit">
+     <property name="title">
+      <string>Добавить / Изменить город</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayoutEdit">
+      <property name="spacing">
+       <number>10</number>
+      </property>
+
+      <item row="0" column="0">
+       <widget class="QLabel" name="labelName">
+        <property name="text">
+         <string>Название:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLineEdit" name="lineEditName">
+        <property name="placeholderText">
+         <string>Введите название города</string>
+        </property>
+       </widget>
+      </item>
+
+      <item row="1" column="0">
+       <widget class="QLabel" name="labelLat">
+        <property name="text">
+         <string>Широта:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBoxLat">
+        <property name="minimum">
+         <double>-90.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>90.000000000000000</double>
+        </property>
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+
+      <item row="2" column="0">
+       <widget class="QLabel" name="labelLon">
+        <property name="text">
+         <string>Долгота:</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1">
+       <widget class="QDoubleSpinBox" name="doubleSpinBoxLon">
+        <property name="minimum">
+         <double>-180.000000000000000</double>
+        </property>
+        <property name="maximum">
+         <double>180.000000000000000</double>
+        </property>
+        <property name="decimals">
+         <number>4</number>
+        </property>
+        <property name="value">
+         <double>0.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+
+      <item row="3" column="0" colspan="2">
+       <layout class="QHBoxLayout" name="horizontalLayoutButtons">
+        <item>
+         <widget class="QPushButton" name="btnAdd">
+          <property name="text">
+           <string>➕ Добавить</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <widget class="QPushButton" name="btnUpdate">
+          <property name="text">
+           <string>✏️ Обновить</string>
+          </property>
+         </widget>
+        </item>
+        <item>
+         <spacer name="horizontalSpacer">
+          <property name="orientation">
+           <enum>Qt::Horizontal</enum>
+          </property>
+          <property name="sizeHint" stdset="0">
+           <size>
+            <width>40</width>
+            <height>20</height>
+           </size>
+          </property>
+         </spacer>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+   </item>
+
+   <!-- Кнопки действий -->
+   <item>
+    <layout class="QHBoxLayout" name="horizontalLayoutActions">
+     <item>
+      <widget class="QPushButton" name="btnDelete">
+       <property name="text">
+        <string>🗑️ Удалить выбранный</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnRestore">
+       <property name="text">
+        <string>🔄 Восстановить стандартные</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <spacer name="horizontalSpacerActions">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnSave">
+       <property name="text">
+        <string>💾 Сохранить</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #27ae60;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnCancel">
+       <property name="text">
+        <string>❌ Отмена</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">background-color: #95a5a6;</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+  </layout>
+ </widget>
+
+ <tabstops>
+  <tabstop>tableWidget</tabstop>
+  <tabstop>lineEditName</tabstop>
+  <tabstop>doubleSpinBoxLat</tabstop>
+  <tabstop>doubleSpinBoxLon</tabstop>
+  <tabstop>btnAdd</tabstop>
+  <tabstop>btnUpdate</tabstop>
+  <tabstop>btnDelete</tabstop>
+  <tabstop>btnRestore</tabstop>
+  <tabstop>btnSave</tabstop>
+  <tabstop>btnCancel</tabstop>
+ </tabstops>
+</ui>

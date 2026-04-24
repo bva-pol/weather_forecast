@@ -1,0 +1,475 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>900</width>
+    <height>756</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Метеостанция</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">
+      QMainWindow {
+          background-color: #f0f4f8;
+      }
+
+      /* Стили для выпадающего списка */
+      QComboBox {
+          font-size: 14px;
+          padding: 8px 12px;
+          border: 2px solid #bdc3c7;
+          border-radius: 5px;
+          background-color: white;
+          min-width: 200px;
+          color: #2c3e50;
+      }
+
+      QComboBox:hover {
+          border: 2px solid #3498db;
+          background-color: #f8f9fa;
+      }
+
+      QComboBox:focus {
+          border: 2px solid #3498db;
+      }
+
+      /* Стиль для выпадающей стрелки */
+      QComboBox::drop-down {
+          subcontrol-origin: padding;
+          subcontrol-position: top right;
+          width: 30px;
+          border-left: 1px solid #d5dbdb;
+          border-top-right-radius: 5px;
+          border-bottom-right-radius: 5px;
+          background-color: #f8f9fa;
+      }
+
+      QComboBox::drop-down:hover {
+          background-color: #e8f0fe;
+      }
+
+      /* Стрелка */
+      QComboBox::down-arrow {
+          image: none;
+          border-left: 5px solid transparent;
+          border-right: 5px solid transparent;
+          border-top: 6px solid #7f8c8d;
+          margin-top: 2px;
+      }
+
+      QComboBox::down-arrow:hover {
+          border-top: 6px solid #3498db;
+      }
+
+      /* ГЛАВНОЕ ИСПРАВЛЕНИЕ: стиль для выбранного элемента в выпадающем списке */
+      QComboBox QAbstractItemView {
+          background-color: white;
+          border: 1px solid #bdc3c7;
+          border-radius: 4px;
+          padding: 4px;
+          selection-background-color: #3498db;
+          selection-color: white;
+          color: #2c3e50;
+          outline: none;
+      }
+
+      QComboBox QAbstractItemView::item {
+          min-height: 30px;
+          padding: 8px 12px;
+          color: #2c3e50;
+          border-radius: 3px;
+      }
+
+      QComboBox QAbstractItemView::item:hover {
+          background-color: #e8f0fe;
+          color: #2c3e50;
+      }
+
+      QComboBox QAbstractItemView::item:selected {
+          background-color: #3498db;
+          color: white;
+      }
+
+      /* Исправление для текста в самом комбобоксе */
+      QComboBox QAbstractItemView::item:selected:!active {
+          background-color: #3498db;
+          color: white;
+      }
+
+      QComboBox QAbstractItemView::item:selected:active {
+          background-color: #2980b9;
+          color: white;
+      }
+
+      /* Стиль для текста при наведении на выбранный элемент */
+      QComboBox QAbstractItemView::item:selected:hover {
+          background-color: #2980b9;
+          color: white;
+      }
+
+      /* Убираем фокусную рамку */
+      QComboBox QAbstractItemView::item:focus {
+          outline: none;
+          border: none;
+      }
+
+      QLabel#labelCityName {
+          font-size: 24px;
+          font-weight: bold;
+          color: #2c3e50;
+          padding: 10px;
+      }
+
+      QLabel#labelTemperature {
+          font-size: 64px;
+          font-weight: bold;
+          color: #2980b9;
+          padding: 5px;
+      }
+
+      QLabel.infoLabel {
+          font-size: 14px;
+          color: #34495e;
+          padding: 3px;
+      }
+
+      QPushButton {
+          background-color: #3498db;
+          color: white;
+          border: none;
+          padding: 10px 20px;
+          font-size: 14px;
+          font-weight: bold;
+          border-radius: 5px;
+          min-width: 120px;
+      }
+
+      QPushButton:hover {
+          background-color: #2980b9;
+      }
+
+      QPushButton:pressed {
+          background-color: #1f618d;
+      }
+
+      QGroupBox {
+          font-size: 16px;
+          font-weight: bold;
+          border: 2px solid #d5dbdb;
+          border-radius: 8px;
+          margin-top: 10px;
+          padding-top: 10px;
+          background-color: white;
+      }
+
+      QGroupBox::title {
+          subcontrol-origin: margin;
+          left: 10px;
+          padding: 0 5px 0 5px;
+          color: #2c3e50;
+      }
+   </string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QVBoxLayout" name="verticalLayoutMain" stretch="0,0,1">
+    <property name="spacing">
+     <number>10</number>
+    </property>
+    <property name="leftMargin">
+     <number>20</number>
+    </property>
+    <property name="topMargin">
+     <number>20</number>
+    </property>
+    <property name="rightMargin">
+     <number>20</number>
+    </property>
+    <property name="bottomMargin">
+     <number>20</number>
+    </property>
+    <item>
+    <layout class="QHBoxLayout" name="horizontalLayoutTop">
+     <item>
+      <widget class="QLabel" name="labelSelectCity">
+       <property name="text">
+        <string>Выберите город:</string>
+       </property>
+       <property name="styleSheet">
+        <string notr="true">font-size: 14px; font-weight: bold; color: #2c3e50;</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QComboBox" name="comboBoxCity"/>
+     </item>
+     <item>
+      <spacer name="horizontalSpacer">
+       <property name="orientation">
+        <enum>Qt::Horizontal</enum>
+       </property>
+       <property name="sizeHint" stdset="0">
+        <size>
+         <width>40</width>
+         <height>20</height>
+        </size>
+       </property>
+      </spacer>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnEditCities">
+       <property name="text">
+        <string>🏙️ Города</string>
+       </property>
+       <property name="toolTip">
+        <string>Редактировать список городов</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="btnRefresh">
+       <property name="text">
+        <string>🔄 Обновить</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxCurrentWeather">
+      <property name="styleSheet">
+       <string>font-size: 20px; color: #000000;</string>
+      </property>
+      <property name="title">
+       <string>Текущая погода</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayoutCurrentWeather">
+       <property name="spacing">
+        <number>5</number>
+       </property>
+       <item>
+        <widget class="QLabel" name="labelCityName">
+         <property name="styleSheet">
+          <string notr="true">font-size: 30px; font-weight: bold; color: #FF7777;</string>
+         </property>
+         <property name="text">
+          <string>Москва</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QLabel" name="labelTemperature">
+         <property name="styleSheet">
+          <string notr="true">font-size: 32px; font-weight: bold; color: #7777FF;</string>
+         </property>
+         <property name="text">
+          <string>-- °C</string>
+         </property>
+         <property name="alignment">
+          <set>Qt::AlignCenter</set>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <layout class="QGridLayout" name="gridLayoutInfo">
+         <property name="horizontalSpacing">
+          <number>20</number>
+         </property>
+         <property name="verticalSpacing">
+          <number>8</number>
+         </property>
+         <item row="0" column="1">
+          <widget class="QLabel" name="labelHumidity">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; color: #000000;</string>
+           </property>
+           <property name="text">
+            <string>-- %</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="0">
+          <widget class="QLabel" name="labelHumidityTitle">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; font-weight: bold; color: #7f8c8d;</string>
+           </property>
+           <property name="text">
+            <string>Влажность:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="1">
+          <widget class="QLabel" name="labelWind">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; color: #000000;</string>
+           </property>
+           <property name="text">
+            <string>-- м/с</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="0">
+          <widget class="QLabel" name="labelWindTitle">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; font-weight: bold; color: #7f8c8d;</string>
+           </property>
+           <property name="text">
+            <string>Ветер:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="2">
+          <widget class="QLabel" name="labelPressureTitle">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; font-weight: bold; color: #7f8c8d;</string>
+           </property>
+           <property name="text">
+            <string>Давление:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="2">
+          <widget class="QLabel" name="labelWindDirectionTitle">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; font-weight: bold; color: #7f8c8d;</string>
+           </property>
+           <property name="text">
+            <string>Направление:</string>
+           </property>
+          </widget>
+         </item>
+         <item row="0" column="3">
+          <widget class="QLabel" name="labelPressure">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; color: #000000;</string>
+           </property>
+           <property name="text">
+            <string>-- гПа</string>
+           </property>
+          </widget>
+         </item>
+         <item row="1" column="3">
+          <widget class="QLabel" name="labelWindDirection">
+           <property name="styleSheet">
+            <string notr="true">font-size: 20px; color: #000000;</string>
+           </property>
+           <property name="text">
+            <string>--?</string>
+           </property>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+    </item>
+    <item>
+     <widget class="QGroupBox" name="groupBoxForecast">
+      <property name="styleSheet">
+       <string notr="true">font-size: 20px; color: #000000;</string>
+      </property>
+      <property name="title">
+       <string>Прогноз температуры на 4 дня</string>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayoutForecast">
+       <property name="spacing">
+        <number>10</number>
+       </property>
+       <item>
+        <widget class="QtCharts::QChartView" name="chartView">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="minimumSize">
+          <size>
+           <width>400</width>
+           <height>300</height>
+          </size>
+         </property>
+         <property name="styleSheet">
+          <string notr="true">background-color: white; border-radius: 5px;</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>900</width>
+     <height>23</height>
+    </rect>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="title">
+     <string>Файл</string>
+    </property>
+    <addaction name="actionExit"/>
+   </widget>
+   <widget class="QMenu" name="menuHelp">
+    <property name="title">
+     <string>Справка</string>
+    </property>
+    <addaction name="actionAbout"/>
+   </widget>
+   <addaction name="menuFile"/>
+   <addaction name="menuHelp"/>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+  <action name="actionExit">
+   <property name="text">
+    <string>Выход</string>
+   </property>
+   <property name="shortcut">
+    <string>Ctrl+Q</string>
+   </property>
+  </action>
+  <action name="actionAbout">
+   <property name="text">
+    <string>О программе</string>
+   </property>
+  </action>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QtCharts::QChartView</class>
+   <extends>QGraphicsView</extends>
+   <header>QtCharts/QChartView</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections>
+  <connection>
+   <sender>actionExit</sender>
+   <signal>triggered()</signal>
+   <receiver>MainWindow</receiver>
+   <slot>close()</slot>
+   <hints>
+    <hint type="sourcelabel">
+     <x>-1</x>
+     <y>-1</y>
+    </hint>
+    <hint type="destinationlabel">
+     <x>399</x>
+     <y>299</y>
+    </hint>
+   </hints>
+  </connection>
+ </connections>
+</ui>
