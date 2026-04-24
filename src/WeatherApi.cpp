@@ -49,7 +49,7 @@ void WeatherAPI::handleReply (QNetworkReply * reply)
     current.temperature = currentObj["temperature_2m"].toDouble();
     current.humidity = currentObj["relative_humidity_2m"].toInt();
     current.pressure = currentObj["surface_pressure"].toDouble();
-    current.windSpeed = currentObj["wind_speed_10m"].toDouble();
+    current.windSpeed = currentObj["wind_speed_10m"].toDouble() / 3.6;
     current.windDirection = currentObj["wind_direction_10m"].toInt();
     current.windDirectionText = windDirectionToString(current.windDirection);
 

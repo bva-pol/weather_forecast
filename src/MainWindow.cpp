@@ -264,7 +264,6 @@ void MainWindow::updateCurrentWeather(const CurrentWeather &weather)
 
 void MainWindow::updateForecastChart(const QVector<ForecastData> & forecast)
 {
-    qDebug() << Q_FUNC_INFO << 1;
     if (forecast.isEmpty()) return;
 
     _series->clear();
@@ -310,7 +309,6 @@ void MainWindow::updateForecastChart(const QVector<ForecastData> & forecast)
 
     // Цветовое выделение зон по дням (опционально)
     createDayZones(forecast);
-    qDebug() << Q_FUNC_INFO << 2;
 }
 
 void MainWindow::createDayZones (const QVector<ForecastData> & data)
